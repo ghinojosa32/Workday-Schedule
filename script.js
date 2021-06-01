@@ -1,18 +1,19 @@
 // adding moment variables 
-var currentDate = moment().format("dddd") + " " + moment().format("Do MMM YYYY");
+var currentDate =  moment().format("MMM Do YY");
+var currentHour = moment().format("h:mm:ss a");
 //adding the variable for each hour
 var eightAm = $("#8am");
 var nineAm = $("#9am");
 var tenAm = $("#10am");
 var elevenAm = $("#11am");
 var twelvePm = $("#12pm");
-var onePm = $("#1pm");
-var twoPm = $("#2pm");
-var threePm = $("#3pm");
-var fourPm = $("#4pm");
-var fivePm = $("#5pm");
-var sixPm = $("#6pm");
-var sevenPm = $("#7pm");
+var onePm = $("#13pm");
+var twoPm = $("#14pm");
+var threePm = $("#15pm");
+var fourPm = $("#16pm");
+var fivePm = $("#17pm");
+var sixPm = $("#18pm");
+var sevenPm = $("#19pm");
 
 
 var hour = moment().hours();
@@ -23,8 +24,7 @@ var hourSpan;
 // this allows the date to be up to date on the header when you open the page 
 var interval = setInterval(function() {
     var momentNow = moment();
-    $('#currentDay').html(momentNow.format('YYYY MMMM DD') + ' '
-                        + momentNow.format('dddd')
+    $('#currentDay').html(momentNow.format('MMM Do YY') + ' ' 
                          .substring(0,3).toUpperCase());
 });
 
@@ -36,37 +36,37 @@ function initPage() {
     eightAm.val(init8);
 
     var init9 = JSON.parse(localStorage.getItem("09:00 am"));
-    eightAm.val(init9);
+    nineAm.val(init9);
 
     var init10 = JSON.parse(localStorage.getItem("10:00 am"));
-    eightAm.val(init10);
+    tenAm.val(init10);
 
     var init11 = JSON.parse(localStorage.getItem("11:00 am"));
-    eightAm.val(init11);
+    elevenAm.val(init11);
 
     var init12 = JSON.parse(localStorage.getItem("12:00 pm"));
-    eightAm.val(init12);
+    twelvePm.val(init12);
 
     var init1 = JSON.parse(localStorage.getItem("01:00 pm"));
-    eightAm.val(init1);
+    onePm.val(init1);
 
     var init2 = JSON.parse(localStorage.getItem("02:00 pm"));
-    eightAm.val(init2);
+    twoPm.val(init2);
 
     var init3 = JSON.parse(localStorage.getItem("03:00 pm"));
-    eightAm.val(init3);
+    threePm.val(init3);
 
     var init4 = JSON.parse(localStorage.getItem("04:00 pm"));
-    eightAm.val(init4);    
+    fourPm.val(init4);    
     
     var init5 = JSON.parse(localStorage.getItem("05:00 pm"));
-    eightAm.val(init5);
+    fivePm.val(init5);
 
     var init6 = JSON.parse(localStorage.getItem("06:00 pm"));
-    eightAm.val(init6);
+    sixPm.val(init6);
 
     var init7 = JSON.parse(localStorage.getItem("07:00 pm"));
-    eightAm.val(init7);
+    sevenPm.val(init7);
 }
 
 // this function sets the bckground color based on the hour if its past, present, future
@@ -78,13 +78,31 @@ function background () {
         hour = parseInt(hour);
         console.log(timeTest);
         console.log(hour);
-        if (hour > timeTest) {
-            $(this).addClass("past");
-        } else if (hour < timeTest) {
+        if (hour < timeTest) {
             $(this).addClass("future");
+        } else if (hour > timeTest) {
+            $(this).addClass("past");
         }else {
             $(this).addClass("present");
         }
     });
 }
+$(document).ready(function(){
+    initPage()
+    background()
+    
+//this function lets the save action on the row save the user input into the local storage
+$(".saveButton").on("click", function(){
+
+    userInput = $(this).siblings(".form-control").val().trim();
+    console.log(userInput);
+    
+    hourSpan = $(this).siblings(".input-group-prepend").text().trim();
+    console.log(hourSpan);
+
+    localStorage.setItem(hourSpan, JSON.stringify(userInput));
+})
+
+});
+
 
