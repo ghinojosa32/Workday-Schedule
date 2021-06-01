@@ -67,5 +67,24 @@ function initPage() {
 
     var init7 = JSON.parse(localStorage.getItem("07:00 pm"));
     eightAm.val(init7);
-
 }
+
+// this function sets the bckground color based on the hour if its past, present, future
+
+function background () {
+
+    $(".form-control").each(function () {
+        var timeTest = parseInt($(this).attr("id"));
+        hour = parseInt(hour);
+        console.log(timeTest);
+        console.log(hour);
+        if (hour > timeTest) {
+            $(this).addClass("past");
+        } else if (hour < timeTest) {
+            $(this).addClass("future");
+        }else {
+            $(this).addClass("present");
+        }
+    });
+}
+
