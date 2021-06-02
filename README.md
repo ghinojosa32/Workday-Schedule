@@ -9,3 +9,4 @@ repo link - https://github.com/ghinojosa32/Workday-Schedule.git
 website link - https://ghinojosa32.github.io/Workday-Schedule/
 
 screenshot - 
+(./screensot.png)
